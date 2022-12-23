@@ -11,7 +11,6 @@ import passIcon from '../../src/assets/images/pass.svg';
 import './Login.scss';
 
 import userService from '../services/userService';
-import Signup from './Signup';
 
 class Login extends Component {
     constructor(props) {
