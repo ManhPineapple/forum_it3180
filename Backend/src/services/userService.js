@@ -1,7 +1,7 @@
 import db from '../models/index'
 import bcrypt from 'bcryptjs'
 
-const salt = bcrypt.genSaltSync(19)
+const salt = bcrypt.genSaltSync(7)
 
 let handleLogin = async (email, password) => {
     let userdata = {}

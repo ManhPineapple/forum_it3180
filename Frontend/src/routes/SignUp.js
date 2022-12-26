@@ -47,6 +47,7 @@ class Login extends Component {
         try {
             let res = await handleSignUpApi(this.state.email, this.state.password, this.state.username);
             if (res.message === 'Success') {
+                alert('Success')
                 this.setState({
                     login: true
                 })
@@ -65,7 +66,6 @@ class Login extends Component {
     render() {
         const { email, password, username, errMsg } = this.state;
         if (this.state.login === true) {
-            alert('Success')
             return (<Redirect to={'/login'} />)
         }
 
