@@ -10,10 +10,10 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 import { path } from '../utils'
 
 import Home from './Home'
-import Login from '../containers/auth/Login';
+import Login from '../containers/Auth/Login';
 import Header from '../containers/Header/Header';
 import System from './System';
-import SignUp from '../containers/auth/SignUp';
+import SignUp from '../containers/Auth/SignUp';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 
