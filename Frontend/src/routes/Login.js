@@ -10,28 +10,16 @@ import userIcon from '../../src/assets/images/user.svg';
 import passIcon from '../../src/assets/images/pass.svg';
 import './Login.scss';
 
-import userService from '../services/userService';
+import {handleLoginApi} from '../services/userService';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.btnLogin = React.createRef();
-    }
-
-    initialState = {
-        email: '',
-        password: '',
-        loginError: ''
-    }
-
-    state = {
-        ...this.initialState
-    };
-
-    refresh = () => {
-        this.setState({
-            ...this.initialState
-        })
+        this.state = {
+            email: '',
+            password: ''
+        }
     }
 
     onEmailChange = (e) => {
@@ -45,12 +33,19 @@ class Login extends Component {
     processLogin = async () => {
         const { userLoginSuccess, userLoginFail } = this.props;
 
-        this.refresh();
+        this.setState({
+            errMsg: ""
+        })
 
         try {
-            // let res = await userService.handleLoginApi(this.state.email, this.state.password);
-            // if (res.userdata) 
-            userLoginSuccess()
+            let res = await handleLoginApi(this.state.email, this.state.password);
+            if (res.userdata) {
+                userLoginSuccess(); 
+                
+            }
+            else this.setState({
+                errMsg: res.message
+            })
         } catch (e) {
             console.log('error login : ', e);
             userLoginFail()
@@ -115,11 +110,9 @@ class Login extends Component {
                             />
                         </div>
 
-                        {loginError !== '' && (
-                            <div className='login-error'>
-                                <span className='login-error-message'>{loginError}</span>
-                            </div>
-                        )}
+                        <div className='col-12' style={{color: 'red'}}>
+                            {this.state.errMsg}
+                        </div>
 
                         <div className="form-group login">
                             <input

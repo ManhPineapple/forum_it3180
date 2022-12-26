@@ -4,4 +4,6 @@ const handleLoginApi = (email, password) => {
     return axios.post('/api/handleLogin', {email, password});
 }
 
-export default handleLoginApi
+export {
+    handleLoginApi
+}
