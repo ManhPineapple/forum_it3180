@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import {  Redirect } from 'react-router-dom';
 
-import * as actions from "../store/actions";
+import * as actions from "../../store/actions";
 
-import userIcon from '../../src/assets/images/user.svg';
-import passIcon from '../../src/assets/images/pass.svg';
+import userIcon from '../../assets/images/user.svg';
+import passIcon from '../../assets/images/pass.svg';
 import './Login.scss';
 
-import { handleSignUpApi } from '../services/userService';
+import { handleSignUpApi } from '../../services/userService';
 
 class Login extends Component {
     constructor(props) {
@@ -100,7 +100,7 @@ class Login extends Component {
                         </div>
 
                         <div className="form-group icon-true">
-                            <img className="icon" src={userIcon}/>
+                            <img className="icon" src={userIcon} alt="this" />
                             <input
                                 id="username"
                                 name="username"

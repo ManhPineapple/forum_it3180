@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import {  Redirect } from 'react-router-dom';
 
-import * as actions from "../store/actions";
-import { KeyCodeUtils } from "../utils";
+import * as actions from "../../store/actions";
+import { KeyCodeUtils } from "../../utils";
 
-import userIcon from '../../src/assets/images/user.svg';
-import passIcon from '../../src/assets/images/pass.svg';
+import userIcon from '../../assets/images/user.svg';
+import passIcon from '../../assets/images/pass.svg';
 import './Login.scss';
 
-import {handleLoginApi} from '../services/userService';
+import {handleLoginApi} from '../../services/userService';
 
 class Login extends Component {
     constructor(props) {

@@ -9,11 +9,11 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 
 import { path } from '../utils'
 
-import Home from '../routes/Home';
-import Login from '../routes/Login';
-import Header from './Header/Header';
-import System from '../routes/System';
-import SignUp from '../routes/SignUp';
+import Home from './Home'
+import Login from '../containers/auth/Login';
+import Header from '../containers/Header/Header';
+import System from './System';
+import SignUp from '../containers/auth/SignUp';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 
@@ -45,10 +45,10 @@ class App extends Component {
                         {this.props.isLoggedIn && <Header />}
                         <span className="content-container">
                             <Switch>
-                                <Route path={path.HOME} exact component={(Home)} />
+                                <Route path={path.HOME} exact component={Home} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                <Route path={'/signup'} component = {SignUp} />
+                                <Route path={path.SIGNUP} component = {SignUp} />
                             </Switch>
                         </span>
 
