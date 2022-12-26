@@ -4,20 +4,20 @@ import { push } from "connected-react-router";
 import {  Redirect } from 'react-router-dom';
 
 import * as actions from "../store/actions";
-import { KeyCodeUtils } from "../utils";
 
 import userIcon from '../../src/assets/images/user.svg';
 import passIcon from '../../src/assets/images/pass.svg';
 import './Login.scss';
 
-import {handleLoginApi} from '../services/userService';
+import { handleSignUpApi } from '../services/userService';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: 'Your Email',
-            password: '******'
+            password: '******',
+            username: 'Your Username'
         }
     }
 
@@ -29,67 +29,52 @@ class Login extends Component {
         this.setState({ password: e.target.value })
     }
 
-    signup = () => {
+    onUsernameChange = (e) => {
+        this.setState({ username: e.target.value })
+    }
+
+    login = () => {
         this.setState({
-            signup: true
+            login: true
         })
     }
 
-    processLogin = async () => {
-        const { userLoginSuccess, userLoginFail } = this.props;
-
+    processSignUp = async () => {
         this.setState({
             errMsg: ""
         })
 
         try {
-            let res = await handleLoginApi(this.state.email, this.state.password);
-            if (res.userdata) {
-                userLoginSuccess(); 
-                
+            let res = await handleSignUpApi(this.state.email, this.state.password, this.state.username);
+            if (res.message === 'Success') {
+                this.setState({
+                    login: true
+                })
             }
-            else this.setState({
-                errMsg: res.message
-            })
+            else {
+                this.setState({
+                    errMsg: res.message
+                })
+            }
         } catch (e) {
             console.log('error login : ', e);
-            userLoginFail()
         }
 
-    }
-
-    handlerKeyDown = (event) => {
-        const keyCode = event.which || event.keyCode;
-        if (keyCode === KeyCodeUtils.ENTER) {
-            event.preventDefault();
-            if (!this.btnLogin.current || this.btnLogin.current.disabled) return;
-            this.btnLogin.current.click();
-        }
-    };
-
-    componentDidMount() {
-        document.addEventListener('keydown', this.handlerKeyDown);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.handlerKeyDown);
-        // fix Warning: Can't perform a React state update on an unmounted component
-        this.setState = (state, callback) => {
-            return;
-        };
     }
 
     render() {
-        const { email, password, errMsg } = this.state;
-
-        if (this.state.signup === true) return (<Redirect to={'/signup'} />)
+        const { email, password, username, errMsg } = this.state;
+        if (this.state.login === true) {
+            alert('Success')
+            return (<Redirect to={'/login'} />)
+        }
 
         return (
             <div className="login-wrapper">
                 <div className="login-container">
                     <div className='title'> Candle in the wind</div>
                     <div className="form_login">
-                        <h2 className="title"> Login </h2>
+                        <h2 className="title"> SignUp </h2>
                         <div className="form-group icon-true">
                             <img className="icon" src={userIcon} alt="this" />
                             <input
@@ -114,6 +99,18 @@ class Login extends Component {
                             />
                         </div>
 
+                        <div className="form-group icon-true">
+                            <img className="icon" src={userIcon}/>
+                            <input
+                                id="username"
+                                name="username"
+                                type="text"
+                                className="form-control"
+                                value={username}
+                                onChange={this.onUsernameChange}
+                            />
+                        </div>
+
                         <div className='col-12' style={{color: 'red'}}>
                             {errMsg}
                         </div>
@@ -123,10 +120,11 @@ class Login extends Component {
                                 id="btnLogin"
                                 type="submit"
                                 className="btn"
-                                onClick={this.processLogin}
+
+                                onClick={this.processSignUp}
                             />
                         </div>
-                        <button className='signup' onClick={this.signup}> SignUp </button>
+                        <button className='signup' onClick={this.login}> LogIn </button>
                     </div>
                 </div>
             </div>

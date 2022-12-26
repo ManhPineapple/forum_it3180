@@ -32,7 +32,6 @@ let handleSignup = async (req, res) => {
                 message: 'Email is already exist!'
             })
         }
-        
     } else {
         return res.json({
             message: 'Missing required field'
