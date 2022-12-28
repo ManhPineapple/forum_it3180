@@ -16,8 +16,8 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'Your Email',
-            password: '******'
+            email: '',
+            password: ''
         }
     }
 
@@ -97,6 +97,7 @@ class Login extends Component {
                                 name="email"
                                 type="email"
                                 className="form-control"
+                                placeholder='Your Email'
                                 value={email}
                                 onChange={this.onEmailChange}
                             />
@@ -109,6 +110,7 @@ class Login extends Component {
                                 name="password"
                                 type="password"
                                 className="form-control"
+                                placeholder='Password'
                                 value={password}
                                 onChange={this.onPasswordChange}
                             />

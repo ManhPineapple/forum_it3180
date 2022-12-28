@@ -15,9 +15,10 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'Your Email',
-            password: '******',
-            username: 'Your Username'
+            email: '',
+            password: '',
+            username: '',
+            password2: ''
         }
     }
 
@@ -27,6 +28,10 @@ class Login extends Component {
 
     onPasswordChange = (e) => {
         this.setState({ password: e.target.value })
+    }
+
+    onPassword2Change = (e) => {
+        this.setState({ password2: e.target.value })
     }
 
     onUsernameChange = (e) => {
@@ -44,27 +49,32 @@ class Login extends Component {
             errMsg: ""
         })
 
-        try {
-            let res = await handleSignUpApi(this.state.email, this.state.password, this.state.username);
-            if (res.message === 'Success') {
-                alert('Success')
-                this.setState({
-                    login: true
-                })
+        if (this.state.password !== this.state.password2) {
+            this.setState({
+                errMsg: "Your password isn't same!"
+            })
+        } else {
+            try {
+                let res = await handleSignUpApi(this.state.email, this.state.password, this.state.username);
+                if (res.message === 'Success') {
+                    alert('Success')
+                    this.setState({
+                        login: true
+                    })
+                }
+                else {
+                    this.setState({
+                        errMsg: res.message
+                    })
+                }
+            } catch (e) {
+                console.log('error login : ', e);
             }
-            else {
-                this.setState({
-                    errMsg: res.message
-                })
-            }
-        } catch (e) {
-            console.log('error login : ', e);
         }
-
     }
 
     render() {
-        const { email, password, username, errMsg } = this.state;
+        const { email, password, username, password2, errMsg } = this.state;
         if (this.state.login === true) {
             return (<Redirect to={'/login'} />)
         }
@@ -82,6 +92,7 @@ class Login extends Component {
                                 name="email"
                                 type="email"
                                 className="form-control"
+                                placeholder='New Email'
                                 value={email}
                                 onChange={this.onEmailChange}
                             />
@@ -94,8 +105,22 @@ class Login extends Component {
                                 name="password"
                                 type="password"
                                 className="form-control"
+                                placeholder='Password'
                                 value={password}
                                 onChange={this.onPasswordChange}
+                            />
+                        </div>
+
+                        <div className="form-group icon-true">
+                            <img className="icon" src={passIcon} alt="this" />
+                            <input
+                                id="password2"
+                                name="password2"
+                                type="password"
+                                className="form-control"
+                                placeholder='Rewrite Password'
+                                value={password2}
+                                onChange={this.onPassword2Change}
                             />
                         </div>
 
@@ -106,6 +131,7 @@ class Login extends Component {
                                 name="username"
                                 type="text"
                                 className="form-control"
+                                placeholder='Your name'
                                 value={username}
                                 onChange={this.onUsernameChange}
                             />
