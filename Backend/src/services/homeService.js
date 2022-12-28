@@ -7,10 +7,13 @@ let readPost = async () => {
         order: [['createdAt', 'DESC']],
         attributes: ['userId', 'title', 'content'],
         raw: false, 
-        include: {
+        include: [{
+            model: db.User,
+            attributes: ['userName'],
+        }, {
             model: db.Category,
             attributes: ['name'],
-        }
+        }]
     });
     return listOfPost;
 }
