@@ -10,7 +10,7 @@ let initWebRoutes = (app) => {
 
     router.post('/api/handlelogin', userController.handleLogin);
     router.post('/api/handlesignup', userController.handleSignup);
-    router.put('/api/updateInfo', userController.updateInfo)
+    router.put('/api/updateInfo', userController.updateInfo);
 
     router.get('/api/post', homeController.readPost);
     router.get('/api/mypost', userController.myPost);
