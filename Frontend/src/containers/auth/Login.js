@@ -36,7 +36,7 @@ class Login extends Component {
     }
 
     processLogin = async () => {
-        const { userLoginSuccess, userLoginFail } = this.props;
+        const { userLoginSuccess, userLoginFail, adminLoginSuccess } = this.props;
 
         this.setState({
             errMsg: ""
@@ -45,7 +45,10 @@ class Login extends Component {
         try {
             let res = await handleLoginApi(this.state.email, this.state.password);
             if (res.userdata) {
-                userLoginSuccess(); 
+                if (res.userdata.roleId == 0) adminLoginSuccess(res.userdata);
+
+                userLoginSuccess(res.userdata);
+                //console.log('hi' ,this.state.user.isLoggedIn)
             }
             else this.setState({
                 errMsg: res.message
@@ -146,6 +149,7 @@ const mapDispatchToProps = dispatch => {
         navigate: (path) => dispatch(push(path)),
         userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
         userLoginFail: () => dispatch(actions.userLoginFail()),
+        adminLoginSuccess: (userInfo) => dispatch(actions.adminLoginSuccess(userInfo))
     };
 };
 

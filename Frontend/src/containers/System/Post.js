@@ -39,6 +39,7 @@ class Post extends Component {
 
     render() {
         const {listOfPost, show} = this.state;
+        const {userInfo} = this.props;
         return (
             <div className='post'>
                 <Button className='btn' onClick={this.toggle}>Create A New Post</Button>
@@ -93,6 +94,8 @@ class Post extends Component {
                     }) 
                     }
                 </table>
+
+                <div> {userInfo.userName} </div>
             </div>     
         )
     }
@@ -101,6 +104,7 @@ class Post extends Component {
 
 const mapStateToProps = state => {
     return {
+        userInfo: state.user.userInfo
     };
 };
 

@@ -38,11 +38,12 @@ class App extends Component {
     }
 
     render() {
+        const {isAdmin, isUser} = this.props;
         return (
             <Fragment>
                 <Router history={history}>
                     <div className="main-container">
-                        {this.props.isLoggedIn && <Header />}
+                        {(isUser || isAdmin) && <Header />}
                         <span className="content-container">
                             <Switch>
                                 <Route path={path.HOME} exact component={Home} />
@@ -68,7 +69,8 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        isLoggedIn: state.user.isLoggedIn
+        isUser: state.user.isLoggedIn,
+        isAdmin: state.admin.isLoggedIn
     };
 };
 
