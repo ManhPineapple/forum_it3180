@@ -8,7 +8,7 @@ let handleLogin = async (email, password) => {
 
     let dbUser = await db.User.findOne({
         where: {email: email},
-        attributes: ['email', 'password', 'userName'],
+        attributes: ['email', 'password', 'userName', 'roleId'],
     })
 
     if (dbUser) {
@@ -17,12 +17,13 @@ let handleLogin = async (email, password) => {
         if (check){
             userdata.email = dbUser.email;
             userdata.userName = dbUser.userName;
+            userdata.roleId = dbUser.roleId;
             return userdata
         } else return null
     }
 }
 
-let creatNewUser = async (newuser) => {
+let createNewUser = async (newuser) => {
     let dbUser = await db.User.findOne({
         where: {email: newuser.email},
         attributes: ['email', 'password'],
@@ -77,7 +78,7 @@ let updateInfo = async(newInfo) => {
 
 module.exports = {
     handleLogin: handleLogin,
-    creatNewUser: creatNewUser, 
+    createNewUser: createNewUser, 
     createPost: createPost,
     myPost: myPost,
     updateInfo: updateInfo

@@ -23,7 +23,7 @@ let handleLogin = async (req, res) => {
 let handleSignup = async (req, res) => {
     let newuser = req.body;
     if (newuser.email && newuser.password && newuser.userName) {
-        if (await userService.creatNewUser(newuser)) {
+        if (await userService.createNewUser(newuser)) {
             return res.json({
                 message: 'Success'
             })
