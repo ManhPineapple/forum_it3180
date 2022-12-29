@@ -118,7 +118,7 @@ class Login extends Component {
                                 name="password2"
                                 type="password"
                                 className="form-control"
-                                placeholder='Rewrite Password'
+                                placeholder='Comfirm Password'
                                 value={password2}
                                 onChange={this.onPassword2Change}
                             />
