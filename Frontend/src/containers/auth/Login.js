@@ -48,7 +48,6 @@ class Login extends Component {
                 if (res.userdata.roleId == 0) adminLoginSuccess(res.userdata);
 
                 userLoginSuccess(res.userdata);
-                //console.log('hi' ,this.state.user.isLoggedIn)
             }
             else this.setState({
                 errMsg: res.message
