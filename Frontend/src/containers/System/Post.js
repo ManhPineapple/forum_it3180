@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
+import { Modal, Button, ModalHeader, ModalFooter, ModalBody } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap'
 import { connect } from 'react-redux';
 import { readPost } from '../../services/homeService'
+
 import './Post.scss'
+import { createPost } from '../../services/userService';
 
 class Post extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            listOfPost: []
+            listOfPost: [],
+            show: false,    
         }
+    }
+
+    toggle = () => {
+        this.setState({
+            show: !this.state.show
+        })
+    }
+
+    processPost = async () => {
+        const {title, content, categoryId} = this.state;
+        let res = await createPost(title, content, categoryId)
+        alert(res.message)
+        this.toggle()
     }
 
     async componentDidMount() {
@@ -20,9 +38,41 @@ class Post extends Component {
     }
 
     render() {
-        const {listOfPost} = this.state;
+        const {listOfPost, show} = this.state;
         return (
             <div className='post'>
+                <Button className='btn' onClick={this.toggle}>Create A New Post</Button>
+                <Modal isOpen={show} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.toggle}>Create A New Post</ModalHeader>
+                <ModalBody>
+                    <Form>
+                        <FormGroup>
+                            <Label>Title</Label>
+                            <Input type="text" name="title" onChange={(e) => {this.setState({title: e.target.value})}}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Content</Label>
+                            <Input type="text" name="content" onChange={(e) => {this.setState({content: e.target.value})}}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label> Category </Label>
+                            <Input type="select" name="categoryId" onChange={(e) => {this.setState({categoryId: e.target.value})}}>
+                                    <option value={1}>Sell</option>
+                                    <option value={2}>Buy</option>
+                                    <option value={3}>Sale</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup style={{marginTop: 10, textAlign: 'right'}}>
+                            <Button color="primary" onClick={this.processPost}>Submit</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+                <ModalFooter>
+                    
+                </ModalFooter>
+                </Modal>
+
                 <table className='customers'>
                     <tr>
                         <th className='th'>Author</th>
@@ -31,13 +81,13 @@ class Post extends Component {
                         <th className='th'>Category</th>
                     </tr>
                     {
-                    listOfPost.map((item, index) => {
+                    listOfPost.map((item) => {
                         return (
                             <tr className='tr'>
-                                <td key={index}>{item.User.userName}</td>
-                                <td key={index}>{item.title}</td>
-                                <td key={index}>{item.content}</td>
-                                <td key={index}>{item.Category.name}</td>
+                                <td>{item.User.userName}</td>
+                                <td>{item.title}</td>
+                                <td>{item.content}</td>
+                                <td>{item.Category.name}</td>
                             </tr>
                         )
                     }) 

@@ -8,7 +8,12 @@ const handleSignUpApi = (email, password, userName) => {
     return axios.post('/api/handlesignup', {email, password, userName})
 }
 
+const createPost = (title, content, categoryId) => {
+    return axios.post('api/createpost', {title, content, categoryId})
+}
+
 export {
     handleLoginApi,
-    handleSignUpApi
+    handleSignUpApi,
+    createPost
 }

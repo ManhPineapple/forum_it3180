@@ -46,7 +46,6 @@ class Login extends Component {
             let res = await handleLoginApi(this.state.email, this.state.password);
             if (res.userdata) {
                 userLoginSuccess(); 
-                
             }
             else this.setState({
                 errMsg: res.message

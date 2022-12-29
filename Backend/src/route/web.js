@@ -14,9 +14,9 @@ let initWebRoutes = (app) => {
 
     router.get('/api/post', homeController.readPost);
     router.get('/api/mypost', userController.myPost);
-    router.post('/api/createPost', userController.createPost);
+    router.post('/api/createpost', userController.createPost);
 
-    router.all('/api/inspectPost', adminController.inspectPost);
+    router.all('/api/inspectpost', adminController.inspectPost);
 
     return app.use("/", router);
 }
