@@ -4,9 +4,16 @@ import { connect } from 'react-redux';
 
 class Home extends Component {
 
+    linkToRedirect = (isAdmin, isUser) => {
+        if (isAdmin) return '/admin';
+        if (isUser) return '/user';
+        return '/login'
+    }
+
     render() {
-        const {isAdmin, isUser} = this.props;
-        let linkToRedirect = (isUser || isAdmin) ? '/system' : '/login';
+        const {isAdmin, isUser} = this.props
+
+        let linkToRedirect = this.linkToRedirect(isAdmin, isUser)
 
         return (
             <Redirect to={linkToRedirect} />

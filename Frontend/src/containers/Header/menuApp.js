@@ -10,7 +10,7 @@ export const adminMenu = [
 export const userMenu = [
     {
         name: 'User Service', menus: [
-            { name: 'HomePage', link: '/system/post' },
+            { name: 'HomePage', link: '/user/post' },
             { name: 'My post', link: '/'},
             { name: 'Change profile', link: '/'}
         ]

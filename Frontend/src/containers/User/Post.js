@@ -101,7 +101,6 @@ class Post extends Component {
 
 const mapStateToProps = state => {
     return {
-        userInfo: state.user.userInfo
     };
 };
 

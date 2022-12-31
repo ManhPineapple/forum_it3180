@@ -5,14 +5,14 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 
-import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
+import { adminIsAuthenticated, userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 
 import { path } from '../utils'
 
 import Home from './Home'
 import Login from '../containers/Auth/Login';
 import Header from '../containers/Header/Header';
-import System from './System';
+import User from './User';
 import SignUp from '../containers/Auth/SignUp';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
@@ -48,8 +48,9 @@ class App extends Component {
                             <Switch>
                                 <Route path={path.HOME} exact component={Home} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.SIGNUP} component = {userIsNotAuthenticated(SignUp)} />
+                                <Route path={path.USER} component={userIsAuthenticated(User)} />
+                                <Route path={path.ADMIN} component={adminIsAuthenticated(User)} />
                             </Switch>
                         </span>
 

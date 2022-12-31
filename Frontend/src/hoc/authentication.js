@@ -16,3 +16,9 @@ export const userIsNotAuthenticated = connectedRouterRedirect({
     redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
     allowRedirectBack: false
 });
+
+export const adminIsAuthenticated = connectedRouterRedirect({
+    authenticatedSelector: state => state.admin.isLoggedIn,
+    wrapperDisplayName: 'UserIsAuthenticated',
+    redirectPath: '/user'
+});
