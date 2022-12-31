@@ -3,22 +3,29 @@ import { connect } from 'react-redux';
 
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { Menu } from './menuApp';
+import { adminMenu, userMenu } from './menuApp';
 import './Header.scss';
 
 class Header extends Component {
 
     render() {
-        const { processLogout } = this.props;
+        const { processLogout, isAdmin, isUser, userInfo } = this.props;
 
         return (
             <div className="header-container">
                 {/* thanh navigator */}
                 <div className="header-tabs-container">
-                    <Navigator menus={Menu} />
+                    {isUser && <span> <Navigator menus={userMenu} /> </span> }
+                </div>
+
+                <div> 
+                    {isAdmin && <span> <Navigator menus={adminMenu} /> </span> }
                 </div>
 
                 {/* nút logout */}
+                <div style={{padding: 10}}> 
+                    Welcome {userInfo? userInfo.userName : ' '}
+                </div>
                 <div className="btn btn-logout" onClick={processLogout}>
                     <i className="fas fa-sign-out-alt"></i>
                 </div>
@@ -30,7 +37,9 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isUser: state.user.isLoggedIn,
+        isAdmin: state.admin.isLoggedIn,
+        userInfo: state.user.userInfo
     };
 };
 

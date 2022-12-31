@@ -13,7 +13,6 @@ const actionTypes = Object.freeze({
     ADD_ADMIN_SUCCESS: 'ADD_ADMIN_SUCCESS',
     ADMIN_LOGIN_SUCCESS: 'ADMIN_LOGIN_SUCCESS',
     ADMIN_LOGIN_FAIL: 'ADMIN_LOGIN_FAIL',
-    PROCESS_LOGOUT: 'PROCESS_LOGOUT',
 })
 
 export default actionTypes;
