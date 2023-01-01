@@ -8,12 +8,22 @@ const handleSignUpApi = (email, password, userName) => {
     return axios.post('/api/handlesignup', {email, password, userName})
 }
 
-const createPost = (title, content, categoryId) => {
-    return axios.post('api/createpost', {title, content, categoryId})
+const createPost = (userId, title, content, categoryId) => {
+    return axios.post('api/createpost', {userId, title, content, categoryId})
+}
+
+const updatePost = (postId, title, content, categoryId) => {
+    return axios.put('/api/updatepost', {postId, title, content, categoryId})
+}
+
+const deletePost = (postId) => {
+    return axios.delete('api/deletepost?id=' + postId)
 }
 
 export {
     handleLoginApi,
     handleSignUpApi,
-    createPost
+    createPost,
+    updatePost, 
+    deletePost
 }

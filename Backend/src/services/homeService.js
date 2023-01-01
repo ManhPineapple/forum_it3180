@@ -5,7 +5,7 @@ let readPost = async () => {
         where: {status: 'accepted'},
         limit: 10,
         order: [['createdAt', 'DESC']],
-        attributes: ['userId', 'title', 'content'],
+        attributes: ['id', 'userId', 'title', 'content'],
         raw: false, 
         include: [{
             model: db.User,

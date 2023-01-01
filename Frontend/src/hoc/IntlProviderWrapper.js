@@ -10,19 +10,20 @@ import '@formatjs/intl-relativetimeformat/polyfill';
 import '@formatjs/intl-relativetimeformat/locale-data/en';
 import '@formatjs/intl-relativetimeformat/locale-data/vi';
 
-import { LanguageUtils } from '../utils'
+// import { LanguageUtils } from '../utils'
 
-const messages = LanguageUtils.getFlattenedMessages();
+// const messages = LanguageUtils.getFlattenedMessages();
 
 class IntlProviderWrapper extends Component {
 
     render() {
-        const { children, language } = this.props;
+        const { children } = this.props;
         return (
             <IntlProvider
-                locale={language}
-                messages={messages[language]}
-                defaultLocale="vi">
+                // locale={language}
+                // messages={messages[language]}
+                // defaultLocale="vi"
+                >
                 {children}
             </IntlProvider>
         );

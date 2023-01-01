@@ -45,7 +45,7 @@ class Login extends Component {
         try {
             let res = await handleLoginApi(this.state.email, this.state.password);
             if (res.userdata) {
-                if (res.userdata.roleId == 0) adminLoginSuccess(res.userdata);
+                if (res.userdata.roleId === '0') adminLoginSuccess(res.userdata);
 
                 userLoginSuccess(res.userdata);
             }

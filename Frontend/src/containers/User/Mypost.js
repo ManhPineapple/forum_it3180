@@ -1,57 +1,69 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { readPost } from '../../services/homeService'
+import { Button } from 'reactstrap';
 
 import './Post.scss'
+import { deletePost } from '../../services/userService';
 import ModalPost from './ModalPost';
 
-class Post extends Component {
+class Mypost extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             listOfPost: [],
-            show: false,    
+            showUpdate: false
         }
     }
 
-    toggle = () => {
+    toggle = (id) => {
         this.setState({
-            show: !this.state.show
+            updateId: id,
+            showUpdate: !this.state.showUpdate
         })
     }
-
+    
     async componentDidMount() {
-        let readpost = await readPost();
-        this.setState({
-            listOfPost: readpost.listOfPost
-        })  
+        if (this.props.userId) {
+            let readpost = await readPost(this.props.userId);
+            this.setState({
+                listOfPost: readpost.listOfPost
+            })  
+        }
+    }
+
+    processDelete = async (id) => {
+        let res = await deletePost(id);
+        alert(res.message)
     }
 
     render() {
-        const {listOfPost, show} = this.state;
+        const { listOfPost, showUpdate, updateId} = this.state;
         return (
             <div className='post'>
-                <Button className='btn' onClick={this.toggle}>Create A New Post</Button>
-
-                <ModalPost show={show} toggle={this.toggle} create={true}></ModalPost>
+                <ModalPost show={showUpdate} toggle={this.toggle} update={updateId}></ModalPost>
 
                 <table className='customers'>
                     <tr>
-                        <th className='th'>Author</th>
                         <th className='th'>Title</th>
                         <th className='th'>Content</th>
                         <th className='th'>Category</th>
+                        <th className='th'>Status</th>
+                        <th className='th'>Action</th>
                     </tr>
                     {
                     listOfPost.map((item, index) => {
                         return (
-                            <tr className='tr' id={index}>
-                                <td>{item.User.userName}</td>
+                            <tr className='tr' key = {index}>
                                 <td>{item.title}</td>
                                 <td>{item.content}</td>
                                 <td>{item.Category.name}</td>
+                                <td>{item.status}</td>
+                                <td>
+                                    <Button onClick={() => this.toggle(item.id)}>Edit</Button>
+                                    <Button onClick={() => this.processDelete(item.id)}>Delete</Button>
+                                </td>
                             </tr>
                         )
                     }) 
@@ -74,4 +86,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Mypost);

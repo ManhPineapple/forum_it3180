@@ -8,13 +8,14 @@ let handleLogin = async (email, password) => {
 
     let dbUser = await db.User.findOne({
         where: {email: email},
-        attributes: ['email', 'password', 'userName', 'roleId'],
+        attributes: ['id','email', 'password', 'userName', 'roleId'],
     })
 
     if (dbUser) {
         let check = bcrypt.compareSync(password, dbUser.password);
 
         if (check){
+            userdata.userId = dbUser.id;
             userdata.email = dbUser.email;
             userdata.userName = dbUser.userName;
             userdata.roleId = dbUser.roleId;
@@ -54,7 +55,7 @@ let createPost = async(newPost) => {
 let myPost = async(userId) => {
     let listOfPost = await db.Post.findAll({
         where: {userId: userId},
-        attributes: ['userId', 'title', 'content', 'status'],
+        attributes: ['id', 'title', 'content', 'status'],
         raw: false, 
         include: {
             model: db.Category,
@@ -76,10 +77,33 @@ let updateInfo = async(newInfo) => {
     )
 }
 
+let updatePost = async(newPost) => {
+    await db.Post.update(
+        {
+            title: newPost.title,
+            content: newPost.content,
+            categoryId: newPost.categoryId,
+            status: 'pending'
+        },
+        {
+            where: {id: newPost.postId}
+        }
+    )
+}
+
+let deletePost = async(id) => {
+    await db.Post.destroy({
+        where: {id: id}
+        }
+    )
+}
+
 module.exports = {
     handleLogin: handleLogin,
     createNewUser: createNewUser, 
     createPost: createPost,
     myPost: myPost,
-    updateInfo: updateInfo
+    updateInfo: updateInfo,
+    deletePost: deletePost,
+    updatePost: updatePost
 }
