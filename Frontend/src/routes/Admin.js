@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-
-import Post from '../containers/User/Post'
+import InspectPost from '../containers/Admin/InspectPost';
+import UserManage from '../containers/Admin/UserManage';
 
 class Admin extends Component {
     render() {
@@ -10,8 +10,9 @@ class Admin extends Component {
             <div className="system-container">
                 <div className="system-list">
                     <Switch>
-                        <Route path='/admin' component={Post} />
-                        <Route component={() => { return (<Redirect to= '/admin' />) }} />
+                        <Route path='/admin/inspectpost' component={InspectPost} />
+                        <Route path='/admin/usermanage' component={UserManage} />
+                        <Route component={() => { return (<Redirect to={'/admin/inspectpost'}/>) }} />
                     </Switch>
                 </div>
             </div>

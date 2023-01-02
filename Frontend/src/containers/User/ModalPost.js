@@ -52,15 +52,15 @@ class ModalPost extends Component {
                 <ModalBody>
                     <Form>
                         <FormGroup>
-                            <Label>Title</Label>
+                            <Label>Title{create&&'*'}</Label>
                             <Input type="text" name="title" onChange={(e) => {this.setState({title: e.target.value})}}/>
                         </FormGroup>
                         <FormGroup>
-                            <Label>Content</Label>
+                            <Label>Content{create&&'*'}</Label>
                             <Input type="text" name="content" onChange={(e) => {this.setState({content: e.target.value})}}/>
                         </FormGroup>
                         <FormGroup>
-                            <Label> Category </Label>
+                            <Label>Category*</Label>
                             <Input type="select" name="categoryId" onChange={(e) => {this.setState({categoryId: e.target.value})}}>
                                     <option value={0}></option>
                                     <option value={1}>Sell</option>

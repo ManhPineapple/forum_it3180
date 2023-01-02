@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 
-import { adminIsAuthenticated, userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
+import { adminIsAuthenticated, userIsAuthenticated, userIsNotAuthenticated, adminIsNotAuthenticated } from '../hoc/authentication';
 
 import Header from '../containers/Header/Header';
 import Home from './Home'
@@ -48,7 +48,7 @@ class App extends Component {
                             <Switch>
                                 <Route path={path.HOME} exact component={Home} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                <Route path={path.SIGNUP} component = {userIsNotAuthenticated(SignUp)} />
+                                <Route path={path.SIGNUP} component={userIsNotAuthenticated(SignUp)} />     
                                 <Route path={path.USER} component={userIsAuthenticated(User)} />
                                 <Route path={path.ADMIN} component={adminIsAuthenticated(Admin)} />
                             </Switch>
