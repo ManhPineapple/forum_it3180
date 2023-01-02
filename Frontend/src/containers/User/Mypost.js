@@ -15,6 +15,7 @@ class Mypost extends Component {
             listOfPost: [],
             showUpdate: false
         }
+        this.readpost();
     }
 
     toggle = (id) => {
@@ -24,7 +25,7 @@ class Mypost extends Component {
         })
     }
     
-    async componentDidMount() {
+    readpost = async () => {
         if (this.props.userId) {
             let readpost = await readPost(this.props.userId);
             this.setState({
@@ -36,6 +37,7 @@ class Mypost extends Component {
     processDelete = async (id) => {
         let res = await deletePost(id);
         alert(res.message)
+        this.readpost()
     }
 
     render() {

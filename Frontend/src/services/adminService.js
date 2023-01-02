@@ -1,3 +1,10 @@
 import axios from '../axios';
 
-export default adminService;
+const inspectPost = (postId, action) => {
+    // console.log(`/api/inspectpost?id=${postId}&action=${action}`)
+    return axios.get(`/api/inspectpost?id=${postId}&action=${action}`)
+}
+
+export {
+    inspectPost
+};

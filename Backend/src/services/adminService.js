@@ -3,12 +3,18 @@ import db from '../models/index';
 let readPending = async() => {
     let pendingPost = await db.Post.findAll({
         where: {status: 'pending'},
-        attributes: ['userId', 'title', 'content'],
+        attributes: ['id', 'title', 'content'],
         raw: false,
-        include: {
-            model: db.Category,
-            attributes: ['name'],
-        }
+        include: [
+            {
+                model: db.Category,
+                attributes: ['name'],
+            },
+            {
+                model: db.User,
+                attributes: ['userName'],
+            }
+        ]
     })
     return pendingPost
 }
